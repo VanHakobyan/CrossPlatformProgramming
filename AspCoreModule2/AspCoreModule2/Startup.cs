@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using AspCoreModule2.Services;
-
+using Microsoft.AspNetCore.Diagnostics;
 namespace AspCoreModule2
 {
     public class Startup
@@ -30,15 +30,25 @@ namespace AspCoreModule2
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,IGreeter greeter)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IGreeter greeter)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            var welcome = greeter.GetGreeting();
+            app.UseFileServer();
+            app.UseDefaultFiles();
+            //app.UseStaticFiles();
+            //app.UseWelcomePage();
+            //app.UseRuntimeInfoPage("/info");
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage(); 
+            }
             app.Run(async (context) =>
             {
+                throw new Exception("error");
+                var welcome = greeter.GetGreeting();
                 await context.Response.WriteAsync(welcome);
             });
         }
