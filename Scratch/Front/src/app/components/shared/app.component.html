@@ -1,0 +1,15 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="container">
+  <div style="text-align:center">
+    <h1>
+      {{title}}
+    </h1>
+  </div>
+ 
+  <div *ngIf="userEmail"> 
+      <p><b>Welcome</b> {{userEmail}} (<a [routerLink]="['/login']">Logout</a>) </p>
+  </div>
+  <notification></notification>
+  <router-outlet></router-outlet>
+ </div>

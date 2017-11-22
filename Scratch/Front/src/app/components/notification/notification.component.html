@@ -1,0 +1,6 @@
+
+<div *ngIf="message" 
+[ngClass]="{'alert': message}"
+[class]="message.type">
+    <strong>{{message.text}}</strong>
+</div>
